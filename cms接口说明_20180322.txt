@@ -1,0 +1,466 @@
+cms接口说明
+
+** 如果连接119.10.116.247上的服务器，将url中的ip地址换成119.10.116.247
+示例：
+http://119.10.116.247:8081/rest/cms/addNews
+
+
+***********************************************************************
+
+接口为rest形式
+
+path: /rest/cms/${接口标识}
+方法：post
+消息体：json格式
+返回值：json格式
+
+
+示例
+{
+"newsId": "101",
+"classId": "61",
+"newsTitle": "文章测试1",
+"newsText": "这是一篇测试文章的正文。",
+"newsUrl": "http://www.xinnet.com/xinzhi/61/101.html",
+}
+
+**************************
+
+返回值具体说明：
+
+
+******************************
+
+具体接口说明
+
+示例服务器在：http://127.0.0.1:8081
+
+**********************
+
+1.新闻接口
+
+1.1.添加新闻
+接口标识：addNews
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/addNews
+
+{
+    "newsId": 118,
+    "classId": 61,
+    "newsTitle": "文章测试1",
+    "newsText": "这是一篇测试文章的正文。",
+    "newsUrl": "http://www.xinnet.com/xinzhi/61/101.html",
+    "newsPic": "http://www.xinnet.com/aaa.jpg",
+    "newsSmallText": "这是一篇测试文章的简介。",
+    "newsTags": "测试,文章",
+    "newsTime": "2018-03-12 00:00:00"
+}
+
+{
+"newsId": 102,
+"classId": 61,
+"newsTitle": "好文章",
+"newsText": "优秀作者写得好的文章",
+"newsUrl": "http://www.xinnet.com/xinzhi/61/101.html"
+}
+
+{
+"newsId": 103,
+"classId": 62,
+"newsTitle": "性能测试",
+"newsText": "与题目无关的正文，乱七八糟的内容，农历纪年。",
+"newsUrl": "http://www.xinnet.com/xinzhi/61/101.html"
+}
+
+{
+"newsId": 104,
+"classId": 63,
+"newsTitle": "元宵节",
+"newsText": "农历正月十五",
+"newsUrl": "http://www.xinnet.com/xinzhi/61/101.html"
+}
+
+返回值：
+
+{"result": true}
+
+**********************
+
+
+1.2.获取新闻
+接口标识：findNews
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/findNews
+
+{
+"newsId": 118,
+"classId": 61
+}
+
+返回值：
+
+{
+    "newsId": 118,
+    "classId": 61,
+    "newsTitle": "文章测试1",
+    "newsText": "这是一篇测试文章的正文。",
+    "newsUrl": "http://www.xinnet.com/xinzhi/61/101.html",
+    "newsPic": "http://www.xinnet.com/aaa.jpg",
+    "newsSmallText": "这是一篇测试文章的简介。",
+    "newsTags": "测试,文章",
+    "newsTime": "2018-03-12 00:00:00"
+}
+*************************
+
+1.3 修改新闻
+接口标识：updateNews
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/updateNews
+
+只修改指定字段
+
+{
+"newsId": 118,
+"classId": 61,
+"newsTitle": "文章测试2",
+"newsTime": "2018-03-12 01:00:00"
+}
+
+返回值：
+
+{"result": true}
+
+
+
+*************************
+
+
+1.4 删除新闻
+接口标识：deleteNews
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/deleteNews
+
+{
+"newsId": 101,
+"classId": 61
+}
+
+参数作如下修改：
+批量删除
+[
+	{
+	"newsId": 101,
+	"classId": 61
+	},
+	{
+	"newsId": 102,
+	"classId": 62
+	}
+]
+
+单个删除
+[
+	{
+	"newsId": 101,
+	"classId": 61
+	}
+]
+
+
+返回值：
+
+{"result": true}
+
+*************************
+
+
+1.5 搜索新闻，用标签名称和简介，对新闻进行全文检索（搜索新闻的标题和正文）
+接口标识：searchNews
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/searchNews
+
+{
+"tagName": "测试",
+"tagDesc": "测试文章"
+}
+
+{
+"tagName": "元宵",
+"tagDesc": "测试文章"
+}
+
+返回值：
+
+{
+    "count": 1,
+    "list": [
+        {
+            "newsId": 101,
+            "classId": 61,
+            "newsTitle": "文章测试2",
+            "newsText": "这是一篇测试文章的正文2。",
+            "newsUrl": "http://www.xinnet.com/xinzhi/61/101.html"
+        }
+    ]
+}
+
+*************************
+
+
+1.5 随机获取新闻
+接口标识：randomGetNews
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/randomGetNews
+
+
+返回值：
+
+{
+    "count": 1,
+    "list": [
+        {
+            "newsId": 101,
+            "classId": 61,
+            "newsTitle": "文章测试2",
+            "newsText": "这是一篇测试文章的正文2。",
+            "newsUrl": "http://www.xinnet.com/xinzhi/61/101.html"
+        }
+    ]
+}
+
+*************************
+
+1.6 添加或修改新闻，不存在时添加，存在时修改。
+接口标识：addOrUpdateNews
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/addOrUpdateNews
+
+修改时只修改指定字段
+
+{
+"newsId": 118,
+"classId": 61,
+"newsTitle": "文章测试2",
+"newsTime": "2018-03-12 01:00:00"
+}
+
+返回值：
+
+{"result": true}
+
+
+1.7 获取最新新闻
+接口标识：getNewestNews
+
+调用示例：
+http://119.10.116.247:8081/rest/cms/getNewestNews
+
+**********************
+
+2.标签接口
+
+2.1.2.添加标签
+接口标识：addTag
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/addTag
+
+
+{
+"tagId": 5001,
+"tagName": "SEO",
+"tagDesc": "搜索引擎优化",
+"tagUrl": "http://www.xinnet.com/xinzhi/tag/5001.html"
+}
+
+{
+"tagId": 5002,
+"tagName": "引擎",
+"tagDesc": "发动机的别称",
+"tagUrl": "http://www.xinnet.com/xinzhi/tag/5002.html"
+}
+
+{
+"tagId": 5003,
+"tagName": "域名",
+"tagDesc": "名称",
+"tagUrl": "http://www.xinnet.com/xinzhi/tag/5003.html"
+}
+
+
+返回值：
+
+{"result": true}
+
+**********************
+
+
+2.2.获取标签
+接口标识：findTag
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/findTag
+
+{
+"tagId": 5001
+}
+
+返回值：
+
+{
+    "tagId": 5001,
+    "tagName": "SEO",
+    "tagDesc": "搜索引擎优化",
+    "tagUrl": "http://www.xinnet.com/xinzhi/tag/5001.html"
+}
+
+*************************
+
+2.3 修改标签
+接口标识：updateTag
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/updateTag
+
+只修改指定字段
+
+{
+"tagId": 5001,
+"tagName": "SEO2",
+"tagDesc": "搜索引擎优化2"
+}
+
+返回值：
+
+{"result": true}
+
+
+
+*************************
+
+
+2.4 删除标签
+接口标识：deleteTag
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/deleteTag
+
+{
+"tagId": 5002
+}
+
+返回值：
+
+{"result": true}
+
+*************************
+
+
+2.5 搜索标签闻，用标签名称和简介，对标签进行全文检索（搜索标签的名称和简介）
+接口标识：searchTag
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/searchTag
+
+{
+"tagName": "发动机",
+"tagDesc": "域名"
+}
+
+{
+"tagName": "引擎",
+"tagDesc": "引擎"
+}
+
+返回值：
+
+{
+    "count": 1,
+    "list": [
+				{
+				"tagId": 5001,
+				"tagName": "SEO",
+				"tagDesc": "搜索引擎优化",
+				"tagUrl": "http://www.xinnet.com/xinzhi/tag/5001.html"
+				}
+    ]
+}
+
+*************************
+
+2.6 随机获取标签
+接口标识：randomGetTag
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/randomGetTag
+
+
+返回值：
+
+{
+    "count": 1,
+    "list": [
+				{
+				"tagId": 5001,
+				"tagName": "SEO",
+				"tagDesc": "搜索引擎优化",
+				"tagUrl": "http://www.xinnet.com/xinzhi/tag/5001.html"
+				}
+    ]
+}
+
+
+*************************
+
+2.7 添加或修改标签，不存在时添加，存在时修改。
+接口标识：addOrUpdateTag
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/addOrUpdateTag
+
+修改时，只修改指定字段
+
+{
+"tagId": 5001,
+"tagName": "SEO2",
+"tagDesc": "搜索引擎优化2"
+}
+
+返回值：
+
+{"result": true}
+
+
+
+***********************
+
+3 分词
+
+3.1 对文章内容进行分词
+接口标识：analyze
+
+调用示例：
+http://127.0.0.1:8081/rest/cms/analyze
+
+
+{
+"newsText": "代码很简单，主要介绍下IK中的类，IKSegmenter是分词的主要类，其参数分别是分词的句子或者文章，后面的参数是是否开启智能模式，不开启就按最小词义分。"
+}
+
+返回值：
+[
+    "分词",
+    "参数",
+    "开启",
+    "主要",
+    "类"
+]
+
+

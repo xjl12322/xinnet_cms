@@ -1,0 +1,17 @@
+baike_main 为程序入口
+es_interface 为es接口返回数据 具体可参考cms接口说明
+replace_new_zt.py  为pc端替换模板
+replace_new_zt_m.py  为移动端替换模板
+replace_new_zt_mip.py  为百度mip端替换模板
+
+settings 中可配置redis，mysql数据库的配置
+settings中import_keyword_redis_listname 为redis列表名称
+settings中tags_table_name 为mysql数据表名称
+settings中server 为es接口地址
+
+
+以generate_template_path开头的 是各个模板生成路径的配置
+
+
+
+gjc.py :是读取txt关键词导入线上redis队列
