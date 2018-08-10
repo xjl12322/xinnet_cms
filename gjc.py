@@ -25,7 +25,7 @@ class TxtRedis(object):
     #         return files
     def get_txt_up_redis(self):
         flag = True
-        num = 0
+        numf = 0
         # f = codecs.open("gjc.txt", "rb",encoding="utf-8")
         #
         #
